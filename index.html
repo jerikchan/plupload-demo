@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p>
+    <button id="select_file">选择文件</button>
+    <button id="start_upload">开始上传</button>
+  </p>
+  <ul id="file_list"></ul>
+
+  <script src="moxie.js"></script>
+  <script src="plupload.dev.js"></script>
+  <script>
+    var uploader = new plupload.Uploader({
+      browse_button: 'select_file',
+      runtimes: 'flash',
+      url: 'http://ag.o.fff.com/ajax/upimg.jsp?app=&maxWidth=1024&maxHeight=1024&imgMode=2&_TOKEN=e13ef591983dc66d3fe25937f2a0b84b&forIframe=1'
+    });
+    uploader.init();
+    uploader.bind('FilesAdded', function(uploader, files) {
+      for (var i = 0; i < files.length; i++) {
+        console.log(files[i]);
+      }
+    });
+    uploader.bind('UploadProgress', function(uploader, file) {
+      console.log(file);
+    });
+
+    document.getElementById('start_upload').onclick = function() {
+      uploader.start();
+    };
+  </script>
+</body>
+</html>
